@@ -1,0 +1,32 @@
+def ordenado_automatico(elemento, cola):
+        c_aux = Cola()
+        if cola_llena(cola):
+            print("No hay mas espacio")
+        else:
+            if cola_vacia(cola):
+                arribo(cola, elemento)
+            else:
+                aux = atencion(cola)
+                hora1 = elemento[1]
+                hora1 = int(hora1[0:2])
+                hora_aux = aux[1]
+                hora_aux = int(hora_aux[0:2])
+                if hora1 <= hora_aux:
+                    while not cola_vacia(cola):
+                        arribo(c_aux, atencion(cola))
+                    arribo(cola, elemento)
+                    arribo(cola, aux)
+                else:
+                    while hora1 <= hora_aux and not cola_vacia(cola):
+                        arribo(c_aux, aux)
+                        aux = atencion(cola)
+                    if cola_vacia(cola):
+                        arribo(c_aux, aux)
+                        arribo(c_aux, elemento)
+                    else:
+                        arribo(c_aux, elemento)
+                        arribo(c_aux, aux)
+                    while not cola_vacia(cola):
+                        arribo(c_aux, atencion(cola))
+                while not cola_vacia(c_aux):
+                    arribo(cola, atencion(c_aux))
