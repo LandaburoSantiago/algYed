@@ -1,11 +1,10 @@
 from tda_cola import Cola, arribo, atencion, cola_vacia
 from tda_pila import Pila, apilar, desapilar
-from tda_heap import Heap, arriboHeap, atencionHeap, heap_vacio, buscarHeap
-from math import inf
+from tda_heap import Heap, arribo_H, atencion_H, heap_vacio, buscarHeap
+# from math import inf
 
 
 class Grafo():
-
     def __init__(self, dirigido=True):
         self.inicio = None
         self.tamanio = 0
@@ -13,7 +12,6 @@ class Grafo():
 
 
 class nodoVertice():
-
     def __init__(self, info):
         self.info = info
         self.sig = None
@@ -24,7 +22,6 @@ class nodoVertice():
 class nodoArista():
     # info de vertice(peso), el siguiente nodo vertice de la lista de vertices
     # y su destino o sea el nodo vertice destino que seria
-
     def __init__(self, destino, peso=0):
         self.peso = peso
         self.destino = destino
@@ -97,7 +94,6 @@ def buscar_vertice(grafo, buscado):
 
 
 def barrido_profundidad(grafo, vertice):
-    marcar_no_visitado(grafo)
     while vertice is not None:
         if not vertice.visitado:
             vertice.visitado = True
@@ -105,16 +101,23 @@ def barrido_profundidad(grafo, vertice):
             adyacentes = vertice.adyacentes.inicio
             while adyacentes is not None:
                 aux_adyacente = buscar_vertice(grafo, adyacentes.destino)
+                # print(aux_adyacente)
                 if not aux_adyacente.visitado:
                     barrido_profundidad(grafo, aux_adyacente)
                 adyacentes = adyacentes.sig
         vertice = vertice.sig
 
 
+def barrido_prof(grafo, vertice):
+    marcar_no_visitado(grafo)
+    barrido_profundidad(grafo, vertice)
+
+
 def barrido_amplitud(grafo, vertice):
     marcar_no_visitado(grafo)
     cola = Cola()
     while vertice is not None:
+        print(vertice.visitado)
         if not vertice.visitado:
             vertice.visitado = True
             arribo(cola, vertice)
@@ -200,11 +203,11 @@ def Kruskal(grafo):
         bosque.append([aux.info])
         adyacentes = aux.adyacentes.inicio
         while adyacentes is not None:
-            arriboHeap(aristas, [aux.info, adyacentes.destino], adyacentes.info)
+            arribo_H(aristas, [aux.info, adyacentes.destino], adyacentes.info)
             adyacentes = adyacentes.sig
         aux = aux.sig
     while (len(bosque[0]) == 1) and (not heap_vacio(aristas)):
-        dato = atencionHeap(aristas)
+        dato = atencion_H(aristas)
         origen = None
         for elemento in bosque:
             if dato[1][0] in elemento:
@@ -219,12 +222,12 @@ def dijkstra(grafo, origen, destino):
     aux = grafo.inicio
     while aux is not None:
         if aux.info == origen:
-            arriboHeap(no_visitados, 0, [aux, None])
+            arribo_H(no_visitados, 0, [aux, None])
         else:
-            arriboHeap(no_visitados, inf, [aux, None])
+            arribo_H(no_visitados, inf, [aux, None])
         aux = aux.sig
     while not heap_vacio(no_visitados):
-        dato = atencionHeap(no_visitados)
+        dato = atencion_H(no_visitados)
         apilar(camino, dato)
         aux = dato[1][0].adyacentes.inicio
         while aux is not None:
@@ -238,16 +241,19 @@ g = Grafo(True)
 
 insertar_vertice(g, "A")
 insertar_vertice(g, "B")
+insertar_vertice(g, "Z")
 insertar_vertice(g, "C")
 insertar_vertice(g, "D")
 insertar_vertice(g, "E")
 insertar_vertice(g, "F")
 
+
 insertar_arista(g, 10, "A", "B")
 insertar_arista(g, 5, "A", "C")
-insertar_arista(g, 20, "A", "Z")
-insertar_arista(g, 15, "D", "F")
-insertar_arista(g, 32, "F", "A")
+insertar_arista(g, 2, "C", "F")
+insertar_arista(g, 15, "F", "E")
+insertar_arista(g, 32, "E", "D")
+insertar_arista(g, 32, "D", "B")
 
 
 def verVerticeAristas(g):
@@ -260,7 +266,3 @@ def verVerticeAristas(g):
             aux2 = aux2.sig
         print()
         aux = aux.sig
-
-
-verVerticeAristas(g)
-print()

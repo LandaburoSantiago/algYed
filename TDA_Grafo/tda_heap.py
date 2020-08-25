@@ -1,4 +1,5 @@
 import random
+"""Monticulo"""
 
 
 class Heap():
@@ -9,13 +10,6 @@ class Heap():
 
 def intercambio(a, b):
     a, b = b, a
-
-
-def heap_vacio(heap):
-    if heap.tamanio == 0:
-        return True
-    else:
-        return False
 
 
 def agregar(heap, dato):
@@ -59,13 +53,20 @@ def hundir(heap, indice):
 
 
 # cola de proridad
-def arriboHeap(H, prioridad, dato):
+def arribo_H(H, prioridad, dato):
     agregar(H, [prioridad, dato])
 
 
-def atencionHeap(heap):
+def atencion_H(heap):
     aux = quitar(heap)
     return aux
+
+
+def buscarHeap(heap, dato):
+    if dato in heap:
+        return heap.index(dato)
+    else:
+        return None
 
 
 def heapsort(heap):
@@ -76,13 +77,13 @@ def heapsort(heap):
     heap.tamanio = aux
 
 
-def buscarHeap(heap, dato):
-    if dato in heap:
-        return heap.index(dato)
-    else:
-        return None
-
-
 def monticulizar(heap):
     for i in len(heap.vector):
         flotar(heap)
+
+
+def heap_vacio(heap):
+    if heap.tamanio == 0:
+        return True
+    else:
+        return False

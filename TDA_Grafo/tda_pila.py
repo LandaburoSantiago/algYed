@@ -15,14 +15,12 @@ class Pila():
 
 # Apilar un dato
 
-
 def apilar(pila, dato):
     pila.tope += 1
     pila.datos[pila.tope] = dato
 
 
 # Saca un dato de la pila y lo devuelve
-
 
 def desapilar(pila):
     aux = pila.datos[pila.tope]
