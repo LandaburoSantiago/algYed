@@ -254,9 +254,9 @@ def dijkstra(grafo, origen, destino):
         aux = dato[1][0].adyacentes.inicio
         while aux is not None:
             pos = buscarHeap(no_visitados, aux.destino)
-            print(pos)
-            if (no_visitados.vector[pos][0] > dato[0] + aux.info):
+            if (no_visitados.vector[pos][0] > dato[0] + aux.peso):
                 no_visitados.vector[pos][1][1] = dato[1][0].info
+            aux = aux.sig
     return camino
 
 

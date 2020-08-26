@@ -1,6 +1,7 @@
 from TDA_Grafo import Grafo, nodoVertice, nodoArista
 from TDA_Grafo import insertar_vertice, insertar_arista, verVerticeAristas, barrido_amplitud, buscar_vertice, buscar_adyacentes
 from TDA_Grafo import eliminar_vertice, verticeCA, dijkstra
+from tda_pila import barrido
 import random
 import string
 
@@ -161,9 +162,8 @@ def digrafo():
     insertar_arista(grafo, random.randint(0, 100), 'E', 'C')
     """INCISO E"""
     caminoMasCorto = dijkstra(grafo, 'A', 'D')
-    print(caminoMasCorto)
+    barrido(caminoMasCorto)
 
-    verVerticeAristas(grafo)
 
 
 digrafo()

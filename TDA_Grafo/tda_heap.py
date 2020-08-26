@@ -64,8 +64,8 @@ def atencion_H(heap):
 
 def buscarHeap(heap, dato):
     for i in range(0, len(heap.vector)):
-        if dato == heap.vector[i]:
-            return heap.vector.index(dato)
+        if dato == heap.vector[i][1][0].info:
+            return i
     return None
 
 
