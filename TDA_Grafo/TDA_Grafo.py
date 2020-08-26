@@ -35,6 +35,13 @@ class listaAristas():
         self.tamanio = 0
 
 
+class verticeCA():
+    # este objeto sera para almacenar el vertice con la cantidad de aristas que lo apuntan.
+    def __init__(self):
+        self.vertice = nodoVertice()
+        self.cantidadAristas = 0
+
+
 def insertar_vertice(grafo, dato):
     nodo = nodoVertice(dato)
     if (grafo.inicio is None) or (nodo.info < grafo.inicio.info):
@@ -84,6 +91,19 @@ def buscar_arista(vertice, buscado):
     while (aux is not None) and (aux.destino != buscado):
         aux = aux.sig
     return aux
+
+
+def buscar_adyacentes(vertice, buscado):
+    """Devuelve posicion. -1 si no se encontro lo buscado"""
+    pos = -1
+    i = -1
+    aux = vertice.adyacentes.inicio
+    while (aux is not None) and (pos == -1):
+        i += 1
+        if (aux.destino == buscado):
+            pos = aux.destino
+        aux = aux.sig
+    return pos
 
 
 def buscar_vertice(grafo, buscado):
@@ -171,24 +191,26 @@ def eliminar_vertice(grafo, clave):
     if(dato is not None):
         aux = grafo.inicio
         while aux is not None:
-            eliminar_arista(aux.adyacentes, dato)
+            if aux.adyacentes.tamanio != 0:
+                eliminar_arista(aux.adyacentes, dato)
+            aux = aux.sig
     return dato
 
 
 def eliminar_arista(vertice, clave):
     dato = None
-    if vertice.inicio.info == clave:
-        dato = vertice.inicio.info
+    if vertice.inicio.destino == clave:
+        dato = vertice.inicio.destino
         vertice.inicio = vertice.inicio.sig
         vertice.tamanio -= 1
     else:
         ant = vertice.inicio
         act = vertice.inicio.sig
-        while (act is not None) and (act.info != clave):
+        while (act is not None) and (act.destino != clave):
             ant = act
             act = act.sig
         if (act is not None):
-            dato = act.info
+            dato = act.destino
             ant.sig = act.sig
             vertice.tamanio -= 1
     return dato
