@@ -63,10 +63,10 @@ def atencion_H(heap):
 
 
 def buscarHeap(heap, dato):
-    if dato in heap:
-        return heap.index(dato)
-    else:
-        return None
+    for i in range(0, len(heap.vector)):
+        if dato == heap.vector[i]:
+            return heap.vector.index(dato)
+    return None
 
 
 def heapsort(heap):

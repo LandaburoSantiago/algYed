@@ -1,6 +1,6 @@
 from TDA_Grafo import Grafo, nodoVertice, nodoArista
 from TDA_Grafo import insertar_vertice, insertar_arista, verVerticeAristas, barrido_amplitud, buscar_vertice, buscar_adyacentes
-from TDA_Grafo import eliminar_vertice, verticeCA
+from TDA_Grafo import eliminar_vertice, verticeCA, dijkstra
 import random
 import string
 
@@ -144,4 +144,26 @@ def aleatorio():
     print('Origen: ', origen.info, 'Destino: ', may.destino, 'Peso: ', may.peso)
 
 
-aleatorio()
+def digrafo():
+    grafo = Grafo()
+    vertices = ['A', 'B', 'C', 'D', 'E']
+    for i in vertices:
+        insertar_vertice(grafo, i)
+    insertar_arista(grafo, random.randint(0, 100), 'A', 'B')
+    insertar_arista(grafo, random.randint(0, 100), 'A', 'C')
+    insertar_arista(grafo, random.randint(0, 100), 'A', 'E')
+    insertar_arista(grafo, random.randint(0, 100), 'B', 'C')
+    insertar_arista(grafo, random.randint(0, 100), 'C', 'B')
+    insertar_arista(grafo, random.randint(0, 100), 'C', 'D')
+    insertar_arista(grafo, random.randint(0, 100), 'D', 'D')
+
+    """INCISO D"""
+    insertar_arista(grafo, random.randint(0, 100), 'E', 'C')
+    """INCISO E"""
+    caminoMasCorto = dijkstra(grafo, 'A', 'D')
+    print(caminoMasCorto)
+
+    verVerticeAristas(grafo)
+
+
+digrafo()
