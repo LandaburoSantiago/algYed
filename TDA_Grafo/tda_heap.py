@@ -28,7 +28,7 @@ def quitar(heap):
 def flotar(heap, indice):
     """Flota el elemento en la posicion del indice"""
     padre = (indice-1)//2
-    while heap.vector[padre] < heap.vector[indice] and padre >= 0:
+    while(indice > 0) and (heap.vector[padre][0] > heap.vector[indice][0]):
         heap.vector[padre], heap.vector[indice] = heap.vector[indice], heap.vector[padre]
         indice = padre
         padre = (padre-1)//2
@@ -43,9 +43,9 @@ def hundir(heap, indice):
         may = hi
         # hd = Hijo derecho
         hd = hi + 1
-        if hd <= heap.tamanio - 1 and heap.vector[hd] > heap.vector[hi]:
+        if hd <= heap.tamanio - 1 and heap.vector[hd][0] < heap.vector[hi][0]:
             may = hd
-        if heap.vector[indice] < heap.vector[may]:
+        if heap.vector[indice][0] > heap.vector[may][0]:
             heap.vector[indice], heap.vector[may] = heap.vector[may], heap.vector[indice]
         else:
             control = False
@@ -69,12 +69,29 @@ def buscarHeap(heap, dato):
     return None
 
 
+def buscarHeapPunto8(heap, dato):
+    for i in range(0, len(heap.vector)):
+        if dato == heap.vector[i][1][0].info['nombre']:
+            return i
+    return None
+
+
 def heapsort(heap):
     """Metodo de ordenamiento monticulo"""
     aux = heap.tamanio
     for i in range(0, heap.tamanio-1):
         quitar(heap)
     heap.tamanio = aux
+
+
+def cambiar_prioridad(heap, indice, prioridad):
+    """Cambia la prioridad de un elemento y lo acomoda en el monticulo"""
+    prioridad_anterior = heap.vector[indice][0]
+    heap.vector[indice][0] = prioridad
+    if(prioridad < prioridad_anterior):
+        flotar(heap, indice)
+    elif(prioridad > prioridad_anterior):
+        hundir(heap, indice)
 
 
 def monticulizar(heap):
